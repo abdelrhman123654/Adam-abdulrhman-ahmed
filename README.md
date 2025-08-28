@@ -221,6 +221,7 @@
             opacity: 0.3;
             transition: opacity 0.5s ease;
             flex: 0 0 calc(25% - 15px);
+            cursor: pointer;
         }
         
         .reward-item.unlocked {
@@ -390,6 +391,54 @@
             background: #f44336;
             opacity: 0.7;
         }
+
+        /* نافذة الجائزة المنبثقة */
+        .reward-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .reward-popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+        
+        .reward-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .reward-popup-image {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+        }
+        
+        .reward-popup-video {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -454,6 +503,16 @@
     
     <div class="celebrate" id="celebrate">
         <!-- سيتم إنشاء الكونفيتي هنا بواسطة JavaScript -->
+    </div>
+
+    <!-- نافذة الجائزة المنبثقة -->
+    <div class="reward-popup" id="reward-popup">
+        <div class="reward-popup-content">
+            <button class="reward-popup-close" id="reward-popup-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="reward-popup-body"></div>
+        </div>
     </div>
     
     <audio id="bg-music" loop>
@@ -709,6 +768,9 @@
         const restartBtn = document.getElementById('restart-btn');
         const startScreen = document.getElementById('start-screen');
         const startBtn = document.getElementById('start-btn');
+        const rewardPopup = document.getElementById('reward-popup');
+        const rewardPopupClose = document.getElementById('reward-popup-close');
+        const rewardPopupBody = document.getElementById('reward-popup-body');
         
         const bgMusic = document.getElementById('bg-music');
         const correctSound = document.getElementById('correct-sound');
@@ -724,6 +786,7 @@
         let timeLeft = 70; // 70 ثانية
         let timerInterval;
         let gameStarted = false;
+        let shuffledQuestions = [];
 
         // تهيئة اللعبة
         function initGame() {
@@ -731,6 +794,10 @@
             score = 0;
             unlockedRewards = [];
             timeLeft = 70;
+            
+            // خلط الأسئلة بشكل عشوائي
+            shuffledQuestions = [...questions];
+            shuffleArray(shuffledQuestions);
             
             loadQuestion();
             createRewardsDisplay();
@@ -753,6 +820,15 @@
             timeUpSound.volume = 0.7;
             
             gameStarted = true;
+        }
+
+        // دالة لخلط المصفوفة (لجعل الأسئلة عشوائية)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
         // بدء المؤقت
@@ -802,6 +878,9 @@
             // عرض الجوائز المكتسبة
             showFinalRewards();
             
+            // إضافة مستمعي الأحداث للجوائز النهائية
+            addRewardsEventListeners(finalRewardsContainer);
+            
             // إيقاف الموسيقى الخلفية
             bgMusic.pause();
         }
@@ -809,7 +888,7 @@
         // تحميل السؤال الحالي
         function loadQuestion() {
             answered = false;
-            const question = questions[currentQuestionIndex];
+            const question = shuffledQuestions[currentQuestionIndex];
             questionText.textContent = question.question;
             
             optionsContainer.innerHTML = '';
@@ -830,7 +909,7 @@
             if (answered || timeLeft <= 0) return;
             answered = true;
             
-            const question = questions[currentQuestionIndex];
+            const question = shuffledQuestions[currentQuestionIndex];
             const options = optionsContainer.querySelectorAll('.option-btn');
             
             options.forEach((button, index) => {
@@ -896,32 +975,34 @@
 
         // عرض الجائزة
         function showReward(reward) {
+            rewardPopup.style.display = 'flex';
+            
             if (reward.type === 'image') {
-                // عرض الصورة في نافذة منبثقة
-                const popup = window.open('', '_blank', 'width=800,height=600');
-                popup.document.write(`
-                    <html dir="rtl">
-                        <head><title>${reward.label}</title></head>
-                        <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #000;">
-                            <img src="${reward.source}" style="max-width: 100%; max-height: 100%;">
-                        </body>
-                    </html>
-                `);
+                rewardPopupBody.innerHTML = `
+                    <h3>${reward.label}</h3>
+                    <img src="${reward.source}" alt="${reward.label}" class="reward-popup-image">
+                `;
             } else if (reward.type === 'video') {
-                // عرض الفيديو في نافذة منبثقة
-                const popup = window.open('', '_blank', 'width=800,height=600');
-                popup.document.write(`
-                    <html dir="rtl">
-                        <head><title>${reward.label}</title></head>
-                        <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #000;">
-                            <video controls autoplay style="max-width: 100%; max-height: 100%;">
-                                <source src="${reward.source}" type="video/mp4">
-                                متصفحك لا يدعم تشغيل الفيديو
-                            </video>
-                        </body>
-                    </html>
-                `);
+                rewardPopupBody.innerHTML = `
+                    <h3>${reward.label}</h3>
+                    <video controls autoplay class="reward-popup-video">
+                        <source src="${reward.source}" type="video/mp4">
+                        متصفحك لا يدعم تشغيل الفيديو
+                    </video>
+                `;
             }
+        }
+
+        // إضافة مستمعي الأحداث للجوائز
+        function addRewardsEventListeners(container) {
+            const rewardItems = container.querySelectorAll('.reward-item.unlocked');
+            rewardItems.forEach(item => {
+                const points = parseInt(item.getAttribute('data-points'));
+                const reward = rewards.find(r => r.points === points);
+                if (reward) {
+                    item.addEventListener('click', () => showReward(reward));
+                }
+            });
         }
 
         // إنشاء عرض الجوائز
@@ -958,82 +1039,112 @@
             rewards.forEach(reward => {
                 const rewardItem = document.createElement('div');
                 rewardItem.className = 'reward-item';
+                rewardItem.setAttribute('data-points', reward.points);
+                
                 if (score >= reward.points) {
                     rewardItem.classList.add('unlocked');
                 }
                 
-                if (reward.type === 'image') {
-                    rewardItem.innerHTML = `
-                        <div class="reward-image">
-                            <img src="${reward.source}" alt="${reward.label}">
-                        </div>
-                        <div class="reward-label">${reward.points} نقطة</div>
-                    `;
-                } else {
-                    rewardItem.innerHTML = `
-                        <div class="reward-video">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="reward-label">${reward.points} نقطة</div>
-                    `;
-                }
-                
-                finalRewardsContainer.appendChild(rewardItem);
-            });
-        }
-
-        // تأثير الاحتفال
-        function celebrate() {
-            celebrateDiv.style.opacity = '1';
-            
-            // إنشاء عناصر الكونفيتي
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                celebrateDiv.appendChild(confetti);
-            }
-            
-            setTimeout(() => {
-                celebrateDiv.style.opacity = '0';
-                setTimeout(() => {
-                    celebrateDiv.innerHTML = '';
-                }, 500);
-            }, 3000);
-        }
-
-        // التحكم بالموسيقى
-        function toggleMusic() {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+                if (reward.type === 'image') {             
+                rewardItem.innerHTML = `
+                    <div class="reward-image">
+                        <img src="${reward.source}" alt="${reward.label}">
+                    </div>
+                    <div class="reward-label">${reward.points} نقطة</div>
+                `;
             } else {
-                bgMusic.pause();
-                musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                rewardItem.innerHTML = `
+                    <div class="reward-video">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="reward-label">${reward.points} نقطة</div>
+                `;
+            }
+            
+            finalRewardsContainer.appendChild(rewardItem);
+        });
+    }
+
+    // تأثير الاحتفال
+    function celebrate() {
+        celebrateDiv.style.opacity = '1';
+        
+        // إنشاء عناصر الكونفيتي
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            celebrateDiv.appendChild(confetti);
+        }
+        
+        setTimeout(() => {
+            celebrateDiv.style.opacity = '0';
+            setTimeout(() => {
+                celebrateDiv.innerHTML = '';
+            }, 500);
+        }, 3000);
+    }
+
+    // التحكم بالموسيقى
+    function toggleMusic() {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            bgMusic.pause();
+            musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+    }
+
+    // الانتقال إلى السؤال التالي
+    nextBtn.addEventListener('click', () => {
+        currentQuestionIndex = (currentQuestionIndex + 1) % shuffledQuestions.length;
+        loadQuestion();
+    });
+    
+    // إعادة بدء اللعبة
+    restartBtn.addEventListener('click', () => {
+        initGame();
+    });
+    
+    // بدء اللعبة
+    startBtn.addEventListener('click', () => {
+        initGame();
+    });
+
+    // تحكم بالموسيقى
+    musicControl.addEventListener('click', toggleMusic);
+
+    // إغلاق نافذة الجائزة المنبثقة
+    rewardPopupClose.addEventListener('click', () => {
+        rewardPopup.style.display = 'none';
+        // إيقاف الفيديو إذا كان يعمل
+        const video = rewardPopupBody.querySelector('video');
+        if (video) {
+            video.pause();
+        }
+    });
+
+    // إغلاق النافذة المنبثقة بالنقر خارج المحتوى
+    rewardPopup.addEventListener('click', (e) => {
+        if (e.target === rewardPopup) {
+            rewardPopup.style.display = 'none';
+            // إيقاف الفيديو إذا كان يعمل
+            const video = rewardPopupBody.querySelector('video');
+            if (video) {
+                video.pause();
             }
         }
+    });
 
-        // الانتقال إلى السؤال التالي
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
-            loadQuestion();
-        });
-        
-        // إعادة بدء اللعبة
-        restartBtn.addEventListener('click', () => {
-            initGame();
-        });
-        
-        // بدء اللعبة
-        startBtn.addEventListener('click', () => {
-            initGame();
-        });
-
-        // تحكم بالموسيقى
-        musicControl.addEventListener('click', toggleMusic);
-    </script>
+    // إضافة مستمعي الأحداث للجوائز عند التحميل
+    document.addEventListener('DOMContentLoaded', () => {
+        createRewardsDisplay();
+        addRewardsEventListeners(rewardsContainer);
+    });
+</script>
 </body>
 </html>
