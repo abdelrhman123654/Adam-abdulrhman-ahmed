@@ -166,7 +166,7 @@
             margin-bottom: 15px;
         }
         
-        .next-btn, .restart-btn, .start-btn {
+        .next-btn, .restart-btn, .start-btn, .submit-btn {
             background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
             color: white;
             border: none;
@@ -180,7 +180,7 @@
             display: block;
         }
         
-        .next-btn:hover, .restart-btn:hover, .start-btn:hover {
+        .next-btn:hover, .restart-btn:hover, .start-btn:hover, .submit-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
@@ -321,6 +321,118 @@
             line-height: 1.6;
         }
         
+        /* شاشة الدفع */
+        .payment-screen {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .payment-screen h2 {
+            font-size: 2rem;
+            color: #0288d1;
+            margin-bottom: 20px;
+        }
+        
+        .payment-screen p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .payment-details {
+            background: #e1f5fe;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: right;
+        }
+        
+        .payment-details h3 {
+            color: #0288d1;
+            margin-bottom: 15px;
+        }
+        
+        .payment-info {
+            text-align: right;
+            margin-bottom: 15px;
+        }
+        
+        .payment-info p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #01579b;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b3e5fc;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        
+        .file-upload {
+            background: #f1f8fe;
+            border: 2px dashed #4fc3f7;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .file-upload i {
+            font-size: 2rem;
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        
+        .file-upload p {
+            color: #0288d1;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        /* شاشة كود التفعيل */
+        .activation-screen {
+            text-align: center;
+            padding: 50px 30px;
+            display: none;
+        }
+        
+        .activation-screen h2 {
+            font-size: 2rem;
+            color: #0288d1;
+            margin-bottom: 20px;
+        }
+        
+        .activation-screen p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .activation-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
         /* تصميم متجاوب */
         @media (max-width: 768px) {
             .options-container {
@@ -352,6 +464,10 @@
             
             .reward-item {
                 flex: 0 0 calc(50% - 15px);
+            }
+            
+            .payment-info p {
+                font-size: 1rem;
             }
         }
         
@@ -461,7 +577,59 @@
         <div class="start-screen" id="start-screen">
             <h2>مرحباً بك في لعبة آدم عبدالرحمن!</h2>
             <p>هذه اللعبة تحتوي على 20 سؤالاً حول رعاية الأطفال الرضع. لديك 70 ثانية للإجابة على أكبر عدد ممكن من الأسئلة. كل إجابة صحيحة تعطيك 35 نقطة. يمكنك كسب جوائز عند الوصول إلى نقاط معينة!</p>
+            <p>لبدء اللعبة، يرجى تحويل مبلغ 10 جنيه عبر فودافون كاش إلى الرقم 01009234166</p>
             <button class="start-btn" id="start-btn">ابدأ اللعبة</button>
+        </div>
+        
+        <div class="payment-screen" id="payment-screen">
+            <h2>تفعيل اللعبة</h2>
+            <p>لتفعيل اللعبة، يرجى تحويل مبلغ 10 جنيه عبر فودافون كاش وإدخال بيانات التحويل</p>
+            
+            <div class="payment-details">
+                <h3>بيانات التحويل</h3>
+                <div class="payment-info">
+                    <p><strong>رقم الهاتف:</strong> 01009234166</p>
+                    <p><strong>المبلغ:</strong> 10 جنيه</p>
+                </div>
+            </div>
+            
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="sender-name">الاسم بالكامل</label>
+                    <input type="text" id="sender-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sender-number">رقم الهاتف المحول منه</label>
+                    <input type="text" id="sender-number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>صورة إثبات التحويل (اختياري)</label>
+                    <div class="file-upload" id="upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>انقر لرفع صورة التحويل</p>
+                        <div class="file-name" id="file-name"></div>
+                    </div>
+                    <input type="file" id="payment-proof" accept="image/*" style="display: none;">
+                </div>
+                
+                <button type="submit" class="submit-btn">تأكيد التحويل</button>
+            </form>
+        </div>
+        
+        <div class="activation-screen" id="activation-screen">
+            <h2>أدخل كود التفعيل</h2>
+            <p>تم إرسال كود التفعيل إلى رقمك، يرجى إدخاله أدناه</p>
+            
+            <div class="activation-form">
+                <div class="form-group">
+                    <label for="activation-code">كود التفعيل</label>
+                    <input type="text" id="activation-code" placeholder="أدخل الكود المكون من 6 أحرف/أرقام" required>
+                </div>
+                
+                <button class="submit-btn" id="activate-btn">تفعيل اللعبة</button>
+            </div>
         </div>
         
         <div class="game-content" id="game-content" style="display: none;">
@@ -477,7 +645,6 @@
             
             <div class="feedback-section">
                 <div class="feedback-text" id="feedback-text"></div>
-                <button class="next-btn" id="next-btn">السؤال التالي</button>
             </div>
             
             <div class="rewards-section">
@@ -751,11 +918,13 @@
             { points: 400, type: 'video', source: 'https://f.top4top.io/m_3527kwosw1.mp4', label: 'فيديو 4' }
         ];
 
+        // إنشاء 50 كود تفعيل عشوائي
+        const activationCodes = Array.from({ length: 50 }, () => generateRandomCode(6));
+        
         // عناصر DOM
         const questionText = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
         const feedbackText = document.getElementById('feedback-text');
-        const nextBtn = document.getElementById('next-btn');
         const scoreDisplay = document.getElementById('score');
         const timerDisplay = document.getElementById('timer');
         const rewardsContainer = document.getElementById('rewards-container');
@@ -768,6 +937,14 @@
         const restartBtn = document.getElementById('restart-btn');
         const startScreen = document.getElementById('start-screen');
         const startBtn = document.getElementById('start-btn');
+        const paymentScreen = document.getElementById('payment-screen');
+        const activationScreen = document.getElementById('activation-screen');
+        const paymentForm = document.getElementById('payment-form');
+        const uploadArea = document.getElementById('upload-area');
+        const paymentProof = document.getElementById('payment-proof');
+        const fileName = document.getElementById('file-name');
+        const activationCodeInput = document.getElementById('activation-code');
+        const activateBtn = document.getElementById('activate-btn');
         const rewardPopup = document.getElementById('reward-popup');
         const rewardPopupClose = document.getElementById('reward-popup-close');
         const rewardPopupBody = document.getElementById('reward-popup-body');
@@ -787,6 +964,17 @@
         let timerInterval;
         let gameStarted = false;
         let shuffledQuestions = [];
+        let nextQuestionTimeout;
+
+        // دالة لإنشاء كود عشوائي
+        function generateRandomCode(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
 
         // تهيئة اللعبة
         function initGame() {
@@ -804,8 +992,10 @@
             updateScore(0);
             updateTimerDisplay();
             
-            // إخفاء شاشة البدء وإظهار محتوى اللعبة
+            // إخفاء شاشات البدء والتفعيل وإظهار محتوى اللعبة
             startScreen.style.display = 'none';
+            paymentScreen.style.display = 'none';
+            activationScreen.style.display = 'none';
             gameContent.style.display = 'block';
             timeUpMessage.style.display = 'none';
             
@@ -836,7 +1026,6 @@
             clearInterval(timerInterval);
             timeLeft = 70;
             updateTimerDisplay();
-            
             timerInterval = setInterval(() => {
                 timeLeft--;
                 updateTimerDisplay();
@@ -901,7 +1090,6 @@
             });
             
             feedbackText.textContent = '';
-            nextBtn.style.display = 'none';
         }
 
         // التحقق من الإجابة
@@ -933,7 +1121,12 @@
                 wrongSound.play();
             }
             
-            nextBtn.style.display = 'block';
+            // الانتقال التلقائي للسؤال التالي بعد 2 ثانية (بدون زر)
+            clearTimeout(nextQuestionTimeout);
+            nextQuestionTimeout = setTimeout(() => {
+                currentQuestionIndex = (currentQuestionIndex + 1) % shuffledQuestions.length;
+                loadQuestion();
+            }, 2000);
         }
 
         // تحديث النقاط
@@ -1046,105 +1239,148 @@
                 }
                 
                 if (reward.type === 'image') {             
-                rewardItem.innerHTML = `
-                    <div class="reward-image">
-                        <img src="${reward.source}" alt="${reward.label}">
-                    </div>
-                    <div class="reward-label">${reward.points} نقطة</div>
-                `;
-            } else {
-                rewardItem.innerHTML = `
-                    <div class="reward-video">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div class="reward-label">${reward.points} نقطة</div>
-                `;
+                    rewardItem.innerHTML = `
+                        <div class="reward-image">
+                            <img src="${reward.source}" alt="${reward.label}">
+                        </div>
+                        <div class="reward-label">${reward.points} نقطة</div>
+                    `;
+                } else {
+                    rewardItem.innerHTML = `
+                        <div class="reward-video">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="reward-label">${reward.points} نقطة</div>
+                    `;
+                }
+                
+                finalRewardsContainer.appendChild(rewardItem);
+            });
+        }
+
+        // تأثير الاحتفال
+        function celebrate() {
+            celebrateDiv.style.opacity = '1';
+            
+            // إنشاء عناصر الكونفيتي
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                celebrateDiv.appendChild(confetti);
             }
             
-            finalRewardsContainer.appendChild(rewardItem);
-        });
-    }
-
-    // تأثير الاحتفال
-    function celebrate() {
-        celebrateDiv.style.opacity = '1';
-        
-        // إنشاء عناصر الكونفيتي
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-            celebrateDiv.appendChild(confetti);
-        }
-        
-        setTimeout(() => {
-            celebrateDiv.style.opacity = '0';
             setTimeout(() => {
-                celebrateDiv.innerHTML = '';
-            }, 500);
-        }, 3000);
-    }
-
-    // التحكم بالموسيقى
-    function toggleMusic() {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
-        } else {
-            bgMusic.pause();
-            musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                celebrateDiv.style.opacity = '0';
+                setTimeout(() => {
+                    celebrateDiv.innerHTML = '';
+                }, 500);
+            }, 3000);
         }
-    }
 
-    // الانتقال إلى السؤال التالي
-    nextBtn.addEventListener('click', () => {
-        currentQuestionIndex = (currentQuestionIndex + 1) % shuffledQuestions.length;
-        loadQuestion();
-    });
-    
-    // إعادة بدء اللعبة
-    restartBtn.addEventListener('click', () => {
-        initGame();
-    });
-    
-    // بدء اللعبة
-    startBtn.addEventListener('click', () => {
-        initGame();
-    });
-
-    // تحكم بالموسيقى
-    musicControl.addEventListener('click', toggleMusic);
-
-    // إغلاق نافذة الجائزة المنبثقة
-    rewardPopupClose.addEventListener('click', () => {
-        rewardPopup.style.display = 'none';
-        // إيقاف الفيديو إذا كان يعمل
-        const video = rewardPopupBody.querySelector('video');
-        if (video) {
-            video.pause();
+        // التحكم بالموسيقى
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                bgMusic.pause();
+                musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
         }
-    });
 
-    // إغلاق النافذة المنبثقة بالنقر خارج المحتوى
-    rewardPopup.addEventListener('click', (e) => {
-        if (e.target === rewardPopup) {
+        // إعادة بدء اللعبة
+        restartBtn.addEventListener('click', () => {
+            initGame();
+        });
+        
+        // بدء عملية الدفع
+        startBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            paymentScreen.style.display = 'block';
+        });
+
+        // تحكم بالموسيقى
+        musicControl.addEventListener('click', toggleMusic);
+
+        // رفع صورة التحويل
+        uploadArea.addEventListener('click', () => {
+            paymentProof.click();
+        });
+
+        paymentProof.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileName.textContent = e.target.files[0].name;
+            }
+        });
+
+        // تقديم نموذج الدفع
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const senderName = document.getElementById('sender-name').value;
+            const senderNumber = document.getElementById('sender-number').value;
+            
+            if (!senderName || !senderNumber) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            // الانتقال إلى شاشة إدخال كود التفعيل
+            paymentScreen.style.display = 'none';
+            activationScreen.style.display = 'block';
+        });
+
+        // تفعيل اللعبة بالكود
+        activateBtn.addEventListener('click', () => {
+            const code = activationCodeInput.value.trim().toUpperCase();
+            
+            if (!code) {
+                alert('يرجى إدخال كود التفعيل');
+                return;
+            }
+            
+            if (activationCodes.includes(code)) {
+                // الكود صحيح، بدء اللعبة
+                initGame();
+            } else {
+                alert('كود التفعيل غير صحيح. يرجى المحاولة مرة أخرى');
+            }
+        });
+
+        // إغلاق نافذة الجائزة المنبثقة
+        rewardPopupClose.addEventListener('click', () => {
             rewardPopup.style.display = 'none';
             // إيقاف الفيديو إذا كان يعمل
             const video = rewardPopupBody.querySelector('video');
             if (video) {
                 video.pause();
             }
-        }
-    });
+        });
 
-    // إضافة مستمعي الأحداث للجوائز عند التحميل
-    document.addEventListener('DOMContentLoaded', () => {
-        createRewardsDisplay();
-        addRewardsEventListeners(rewardsContainer);
-    });
-</script>
+        // إغلاق النافذة المنبثقة بالنقر خارج المحتوى
+        rewardPopup.addEventListener('click', (e) => {
+            if (e.target === rewardPopup) {
+                rewardPopup.style.display = 'none';
+                // إيقاف الفيديو إذا كان يعمل
+                const video = rewardPopupBody.querySelector('video');
+                if (video) {
+                    video.pause();
+                }
+            }
+        });
+
+        // إضافة مستمعي الأحداث للجوائز عند التحميل
+        document.addEventListener('DOMContentLoaded', () => {
+            createRewardsDisplay();
+            addRewardsEventListeners(rewardsContainer);
+            
+            // عرض أكواد التفعيل في console لأغراض الاختبار
+            console.log('أكواد التفعيل المتاحة:', activationCodes);
+        });
+    </script>
 </body>
 </html>
