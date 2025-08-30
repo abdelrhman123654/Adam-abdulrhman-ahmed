@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة آدم عبدالرحمن</title>
+    <title>هاي انا آدم عبدالرحمن</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -577,13 +577,13 @@
         <div class="start-screen" id="start-screen">
             <h2>مرحباً بك في لعبة آدم عبدالرحمن!</h2>
             <p>هذه اللعبة تحتوي على 20 سؤالاً حول رعاية الأطفال الرضع. لديك 70 ثانية للإجابة على أكبر عدد ممكن من الأسئلة. كل إجابة صحيحة تعطيك 35 نقطة. يمكنك كسب جوائز عند الوصول إلى نقاط معينة!</p>
-            <p>لبدء اللعبة، يرجى تحويل مبلغ 10 جنيه عبر فودافون كاش إلى الرقم 01009234166</p>
+            <p>لبدء اللعبة، حولي 10 جنيه عشان عايز بامبرز </p>
             <button class="start-btn" id="start-btn">ابدأ اللعبة</button>
         </div>
         
         <div class="payment-screen" id="payment-screen">
-            <h2>تفعيل اللعبة</h2>
-            <p>لتفعيل اللعبة، يرجى تحويل مبلغ 10 جنيه عبر فودافون كاش وإدخال بيانات التحويل</p>
+            <h2>عايز تلعب</h2>
+            <p>لتفعيل اللعبة، هات 10 جنيه عشان اجيب بامبرز </p>
             
             <div class="payment-details">
                 <h3>بيانات التحويل</h3>
@@ -620,7 +620,7 @@
         
         <div class="activation-screen" id="activation-screen">
             <h2>أدخل كود التفعيل</h2>
-            <p>تم إرسال كود التفعيل إلى رقمك، يرجى إدخاله أدناه</p>
+            <p>بابا هيبعتلك كود التفعيل على الواتساب ، ممكن تدخله في الخانة دي</p>
             
             <div class="activation-form">
                 <div class="form-group">
@@ -1333,23 +1333,51 @@
             paymentScreen.style.display = 'none';
             activationScreen.style.display = 'block';
         });
-
-        // تفعيل اللعبة بالكود
-        activateBtn.addEventListener('click', () => {
-            const code = activationCodeInput.value.trim().toUpperCase();
-            
-            if (!code) {
-                alert('يرجى إدخال كود التفعيل');
-                return;
-            }
-            
-            if (activationCodes.includes(code)) {
-                // الكود صحيح، بدء اللعبة
-                initGame();
-            } else {
-                alert('كود التفعيل غير صحيح. يرجى المحاولة مرة أخرى');
-            }
-        });
+// أكواد التفعيل الصحيحة
+const validActivationCodes = new Set([
+    "Adam985", "Adam7X2K", "Adam9L3P", "Adam4R6M", "Adam2F8Q",
+    "Adam1T5V", "Adam6J9W", "Adam3K7S", "Adam8N4D", "Adam5G1C",
+    "Adam0H6B", "Adam7Z3X", "Adam2V8N", "Adam4M6L", "Adam9P5K",
+    "Adam3Q7J", "Adam6T9H", "Adam8Y4G", "Adam1W5F", "Adam7U3D",
+    "Adam2S8A", "Adam4E6Z", "Adam9I5X", "Adam3O7C", "Adam6L9V",
+    "Adam8B4N", "Adam1M5Q", "Adam7C3W", "Adam2A8S", "Adam4D6F",
+    "Adam9G5R", "Adam3H7T", "Adam6K9Y", "Adam8J4U", "Adam1P5I",
+    "Adam7W3O", "Adam2E8L", "Adam4N6B", "Adam9V5M", "Adam3X7Z",
+    "Adam6F9C", "Adam8Q4D", "Adam1Z5A", "Adam7R3S", "Adam2T8G",
+    "Adam4Y6H", "Adam9U5J", "Adam3I7K", "Adam6O9P", "Adam8W4L"
+]);
+// التحقق من كود التفعيل
+function checkActivationCode(code) {
+    // تحميل الأكواد المستخدمة من localStorage
+    const usedCodes = JSON.parse(localStorage.getItem('usedActivationCodes') || '[]');
+    
+    // التحقق إذا كان الكود صحيحاً ولم يُستخدم من قبل
+    if (validActivationCodes.has(code) && !usedCodes.includes(code)) {
+        // إضافة الكود إلى قائمة الأكواد المستخدمة
+        usedCodes.push(code);
+        localStorage.setItem('usedActivationCodes', JSON.stringify(usedCodes));
+        return true;
+    }
+    
+    return false;
+}
+// تفعيل اللعبة بالكود
+activateBtn.addEventListener('click', () => {
+    const code = activationCodeInput.value.trim();
+    
+    if (!code) {
+        alert('يرجى إدخال كود التفعيل');
+        return;
+    }
+    
+    if (checkActivationCode(code)) {
+        // الكود صحيح، بدء اللعبة
+        initGame();
+    } else {
+        alert('كود التفعيل غير صحيح أو تم استخدامه من قبل. يرجى المحاولة مرة أخرى');
+    }
+});
+       
 
         // إغلاق نافذة الجائزة المنبثقة
         rewardPopupClose.addEventListener('click', () => {
@@ -1381,6 +1409,7 @@
             // عرض أكواد التفعيل في console لأغراض الاختبار
             console.log('أكواد التفعيل المتاحة:', activationCodes);
         });
+
     </script>
 </body>
 </html>
