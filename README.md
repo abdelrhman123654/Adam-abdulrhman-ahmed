@@ -683,23 +683,23 @@
     </div>
     
     <audio id="bg-music" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-kids-laughing-493.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/06/04/audio_11d4323329.mp3?filename=the-last-piano-112677.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="correct-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2025/04/23/audio_5a1eca1fdf.mp3?filename=sonido-correcto-331225.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="wrong-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_8b0fae46ef.mp3?filename=wrong-47985.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="reward-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2025/06/10/audio_53c4a3417d.mp3?filename=11l-victory_sound_with_t-1749487045383-357608.mp3" type="audio/mpeg">
     </audio>
     
     <audio id="time-up-sound">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unfair-game-terminator-389.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2025/06/24/audio_fb68e85054.mp3?filename=clock-ticking-365218.mp3" type="audio/mpeg">
     </audio>
 
     <script>
@@ -1341,7 +1341,7 @@
         });
 // أكواد التفعيل الصحيحة
 const validActivationCodes = new Set([
-    "Adam966", "Adam822K", "Adam9L1P", "Adam4R1M", "Adam2F8Q",
+    "Adam906", "Adam802K", "Adam9L1Q", "Adam4R1M", "Adam2F8Q",
     "Adam1T5V", "Adam6J9W", "Adam3K7S", "Adam8N4D", "Adam5G1C",
     "Adam0H6B", "Adam7Z3X", "Adam2V8N", "Adam4M6L", "Adam9P5K",
     "Adam3Q7J", "Adam6T9H", "Adam8Y4G", "Adam1W5F", "Adam7U3D",
