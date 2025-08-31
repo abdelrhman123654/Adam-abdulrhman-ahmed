@@ -1341,7 +1341,7 @@
         });
 // أكواد التفعيل الصحيحة
 const validActivationCodes = new Set([
-    "Adam906", "Adam802K", "Adam9L1P", "Adam4R1M", "Adam2F8Q",
+    "Adam966", "Adam822K", "Adam9L1P", "Adam4R1M", "Adam2F8Q",
     "Adam1T5V", "Adam6J9W", "Adam3K7S", "Adam8N4D", "Adam5G1C",
     "Adam0H6B", "Adam7Z3X", "Adam2V8N", "Adam4M6L", "Adam9P5K",
     "Adam3Q7J", "Adam6T9H", "Adam8Y4G", "Adam1W5F", "Adam7U3D",
