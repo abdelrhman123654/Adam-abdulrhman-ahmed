@@ -565,7 +565,7 @@
         
         <div class="header">
             <div class="baby-character floating">
-                <img src="https://g.top4top.io/p_3527uhvu44.jpeg" alt="آدم عبدالرحمن">
+                <img src="https://c.top4top.io/p_3530429a81.png" alt="آدم عبدالرحمن">
             </div>
             <h1>لعبة آدم عبدالرحمن</h1>
             <div class="stats">
@@ -909,13 +909,19 @@
 
         // بيانات الجوائز
         const rewards = [
-            { points: 100, type: 'image', source: 'https://f.top4top.io/p_3527zne7m3.jpeg', label: 'صورة 1' },
-            { points: 150, type: 'image', source: 'https://e.top4top.io/p_3527i6dgx2.jpeg', label: 'صورة 2' },
-            { points: 200, type: 'image', source: 'https://d.top4top.io/p_3527qto3h1.jpeg', label: 'صورة 3' },
-            { points: 250, type: 'video', source: 'https://j.top4top.io/m_3527h41tj7.mp4', label: 'فيديو 1' },
-            { points: 300, type: 'video', source: 'https://k.top4top.io/m_352762eb68.mp4', label: 'فيديو 2' },
-            { points: 350, type: 'video', source: 'https://a.top4top.io/m_3527dx88710.mp4', label: 'فيديو 3' },
-            { points: 400, type: 'video', source: 'https://f.top4top.io/m_3527kwosw1.mp4', label: 'فيديو 4' }
+            { points: 100, type: 'image', source: 'https://e.top4top.io/p_3530l2jli3.png', label: 'صورة 1' },
+            { points: 150, type: 'image', source: 'https://d.top4top.io/p_3530kmfpv2.png', label: 'صورة 2' },
+            { points: 200, type: 'image', source: 'https://f.top4top.io/p_3530tx22d4.png', label: 'صورة 3' },
+            { points: 250, type: 'image', source: 'https://g.top4top.io/p_3530m53u65.png', label: 'صورة 4' },
+            { points: 300, type: 'image', source: 'https://h.top4top.io/p_3530dscch6.png', label: 'صورة 5' },
+            { points: 350, type: 'image', source: 'https://i.top4top.io/p_3530disjg7.png', label: 'صورة 6' },
+            { points: 400, type: 'image', source: 'https://j.top4top.io/p_3530zkx9h8.png', label: 'صورة 7' },
+            { points: 450, type: 'image', source: 'https://k.top4top.io/p_3530j0hkb9.png', label: 'صورة 8' },
+            { points: 500, type: 'image', source: 'https://l.top4top.io/p_35302x8oq10.png', label: 'صورة 9' },
+            { points: 550, type: 'video', source: 'https://j.top4top.io/m_3527h41tj7.mp4', label: 'فيديو 1' },
+            { points: 600, type: 'video', source: 'https://k.top4top.io/m_352762eb68.mp4', label: 'فيديو 2' },
+            { points: 650, type: 'video', source: 'https://a.top4top.io/m_3527dx88710.mp4', label: 'فيديو 3' },
+            { points: 700, type: 'video', source: 'https://f.top4top.io/m_3527kwosw1.mp4', label: 'فيديو 4' }
         ];
 
         // إنشاء 50 كود تفعيل عشوائي
@@ -1335,7 +1341,7 @@
         });
 // أكواد التفعيل الصحيحة
 const validActivationCodes = new Set([
-    "Adam985", "Adam7X2K", "Adam9L3P", "Adam4R6M", "Adam2F8Q",
+    "Adam906", "Adam802K", "Adam9L1P", "Adam4R1M", "Adam2F8Q",
     "Adam1T5V", "Adam6J9W", "Adam3K7S", "Adam8N4D", "Adam5G1C",
     "Adam0H6B", "Adam7Z3X", "Adam2V8N", "Adam4M6L", "Adam9P5K",
     "Adam3Q7J", "Adam6T9H", "Adam8Y4G", "Adam1W5F", "Adam7U3D",
@@ -1344,7 +1350,7 @@ const validActivationCodes = new Set([
     "Adam9G5R", "Adam3H7T", "Adam6K9Y", "Adam8J4U", "Adam1P5I",
     "Adam7W3O", "Adam2E8L", "Adam4N6B", "Adam9V5M", "Adam3X7Z",
     "Adam6F9C", "Adam8Q4D", "Adam1Z5A", "Adam7R3S", "Adam2T8G",
-    "Adam4Y6H", "Adam9U5J", "Adam3I7K", "Adam6O9P", "Adam8W4L"
+    "Adam4Y6E", "Adam9U6J", "Adam3I2A", "Adam6O8P", "Adam814L"
 ]);
 // التحقق من كود التفعيل
 function checkActivationCode(code) {
